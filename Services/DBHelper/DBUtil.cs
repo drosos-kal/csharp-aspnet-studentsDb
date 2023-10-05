@@ -11,7 +11,7 @@ namespace StudentsDbApp.Services.DBHelper
         {
             var configurationBuilder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
             var configuration = configurationBuilder.Build();
-            string url = configuration.GetConnectionString("DefaultConnection");
+            string? url = configuration.GetConnectionString("DefaultConnection");
             try
             {
                 SqlConnection conn = new(url);

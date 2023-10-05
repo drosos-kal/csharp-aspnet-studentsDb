@@ -1,6 +1,7 @@
 using Serilog;
 using StudentsDbApp.Configuration;
 using StudentsDbApp.DAO;
+using StudentsDbApp.Services;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudentsDbApp
@@ -13,19 +14,23 @@ namespace StudentsDbApp
 
             builder.Host.UseSerilog((context, config) =>
             {
-                config.MinimumLevel
+                config.ReadFrom.Configuration(context.Configuration);
+                
+                /*.MinimumLevel
                     .Debug()
                     .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Information)
                     .WriteTo.Console()
-                    .WriteTo.File("Logs/logs.txt", rollingInterval: RollingInterval.Day, outputTemplate: "[{ Timestamp:dd-mm-yyyy HH:mm:ss} {SourceContext} {level} {Message} ]",
+                    .WriteTo.File("Logs/logs.txt", rollingInterval: RollingInterval.Day, outputTemplate: "[{ Timestamp:dd-mm-yyyy HH:mm:ss} {SourceContext} {level}] {Message} {NewLine} {Exception}",
                     retainedFileCountLimit: null,
                     fileSizeLimitBytes: null
-                    );
+                    );*/
             });
 
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<IStudentDAO, StudentDAOImpl>();
+            builder.Services.AddScoped<IStudentService, StudentServiceImpl>();
+
             builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 
