@@ -1,4 +1,44 @@
-﻿@page
+﻿@page "/Students/{id}/Update"
 @model StudentsDbApp.Pages.Students.UpdateModel
 @{
 }
+
+
+<form method="POST">
+    <div class="row mb-3">
+        <label for="firstname" class="col-md-1">First Name</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Enter First Name" value="@Model.StudentUpdateDto.Firstname" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="firstname" class="col-md-1">Last Name</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Enter Last Name" value="@Model.StudentUpdateDto.Lastname" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="offset-md-1 col-md-3 d-grid">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="col-md-3 d-grid">
+            <a href="/Students/getall" class="btn btn-outline-primary">Cancel</a>
+        </div>
+    </div>
+</form>
+
+<div>
+    <div>
+        @if (Model.ErrorArray.Count != 0)
+        {
+            @foreach (var error in Model.ErrorArray)
+            {
+                <div>
+                    @* <p>@error.Code</p> *@
+                    <p>@error.Message</p>
+                    @* <p>@error.Field</p> *@
+                </div>
+            }
+        }
+    </div>
+</div>

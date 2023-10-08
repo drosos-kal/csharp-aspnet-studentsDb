@@ -12,7 +12,7 @@ namespace StudentsDbApp.Pages.Students
     {
 
         public StudentUpdateDTO StudentUpdateDto { get; set; } = new();
-        public List<Error> ErrorsArray { get; set; } = new();
+        public List<Error> ErrorArray { get; set; } = new();
 
         private readonly IStudentService _studentService;
         private readonly IMapper _mapper;
@@ -34,7 +34,7 @@ namespace StudentsDbApp.Pages.Students
 
             } catch (Exception ex)
             {
-                ErrorsArray.Add(new Error("", ex.Message, ""));
+                ErrorArray.Add(new Error("", ex.Message, ""));
             }
             return Page();
         }
@@ -47,10 +47,10 @@ namespace StudentsDbApp.Pages.Students
             var validationResult = _StudentUpdateValidator.Validate(dto);
             if (!validationResult.IsValid)
             {
-                ErrorsArray = new();
+                ErrorArray = new();
                 foreach (var error in validationResult.Errors)
                 {
-                    ErrorsArray.Add(new Error(error.ErrorCode, error.ErrorMessage, error.PropertyName));
+                    ErrorArray.Add(new Error(error.ErrorCode, error.ErrorMessage, error.PropertyName));
                 }
                 return;
             }
@@ -61,7 +61,7 @@ namespace StudentsDbApp.Pages.Students
                 Response.Redirect("/Students/getall");
             } catch (Exception ex)
             {
-                ErrorsArray.Add(new Error("", ex.Message, ""));
+                ErrorArray.Add(new Error("", ex.Message, ""));
             }
         }
     }
